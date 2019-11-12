@@ -17,6 +17,7 @@ public class StringNumber {
     return binary;
   }
 
+  // Converts a string based decimal number to a string based binary number (e.g. "32" -> "100000")
   private static String binaryString(String decimalNum) {
     if (decimalNum.equals("0")) {
       return "0";
