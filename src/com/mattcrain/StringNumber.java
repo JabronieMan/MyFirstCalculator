@@ -2,7 +2,7 @@ package com.mattcrain;
 
 public class StringNumber {
 
-  private final String binary;
+  private String binary;
 
   public StringNumber(String number) throws IllegalArgumentException {
     // Make sure it's actually a number
@@ -12,9 +12,41 @@ public class StringNumber {
     binary = binaryString(number);
   }
 
+  public StringNumber add(StringNumber other) {
+    String one = binary;
+    String two = other.binary;
+
+    // Normalize lengths by padding zeros to the shorter number
+    int maxLen = Math.max(one.length(), two.length());
+    one = padZeros(one, maxLen);
+    two = padZeros(two, maxLen);
+
+    StringBuilder result = new StringBuilder();
+    char carry = '0';
+    for (int i = one.length() -1; i >= 0; i--) {
+      AddResult add = new AddResult(one.charAt(i), two.charAt(i), carry);
+      result.append(add.result);
+      carry = add.carry;
+    }
+    if (carry == '1') {
+      result.append(carry);
+    }
+
+    binary = result.reverse().toString();
+
+    return this;
+  }
+
   @Override
   public String toString() {
     return binary;
+  }
+
+  private String padZeros(String str, int len) {
+    if (str.length() == len) {
+      return str;
+    }
+    return String.format("%1$" + len + "s", str).replace(' ', '0');
   }
 
   // Converts a string based decimal number to a string based binary number (e.g. "32" -> "100000")
@@ -88,5 +120,22 @@ public class StringNumber {
       }
     }
     return true;
+  }
+
+  private class AddResult {
+    final char result;
+    final char carry;
+
+    AddResult(char one, char two, char carry) {
+      char[] nums = new char[]{one, two, carry};
+      int ones = 0;
+      for (int i = 0; i < nums.length; i++) {
+        if (nums[i] == '1') {
+          ones++;
+        }
+      }
+      result = (ones == 2 || ones == 0) ? '0' : '1';
+      this.carry = (ones >= 2) ? '1' : '0';
+    }
   }
 }

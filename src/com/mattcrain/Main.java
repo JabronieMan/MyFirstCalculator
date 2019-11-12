@@ -3,10 +3,11 @@ package com.mattcrain;
 public class Main {
 
     public static void main(String[] args) {
-	      String dumbNum = "12345";
-	      System.out.println(new StringNumber(dumbNum));
+      StringNumber one = new StringNumber("127");
+      StringNumber two = new StringNumber("1");
 
-        dumbNum = "32768";
-        System.out.println(new StringNumber(dumbNum));
+      one.add(two);
+
+      System.out.println(one);
     }
 }

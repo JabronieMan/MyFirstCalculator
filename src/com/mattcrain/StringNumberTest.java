@@ -13,6 +13,15 @@ class StringNumberTest {
   }
 
   @Test
+  void testadd_expectNumbersAdd() {
+    StringNumber one = new StringNumber("127");
+    StringNumber two = new StringNumber("1");
+
+    one.add(two);
+    assertEquals(one.toString(), "10000000");
+  }
+
+  @Test
   void testNotNumber_expectException() {
     assertThrows(IllegalArgumentException.class, () -> new StringNumber("not number"));
   }
@@ -22,6 +31,19 @@ class StringNumberTest {
     for (int i = 0; i <= 1024; i++) {
       StringNumber test = new StringNumber(String.valueOf(i));
       assertEquals(test.toString(), Integer.toBinaryString(i));
+    }
+  }
+
+  @Test
+  void testadd_lotsOfNumbers() {
+    for (int i = 0; i <= 100; i++) {
+      for (int j = 0; j <= 100; j++) {
+        StringNumber one = new StringNumber(String.valueOf(i));
+        StringNumber two = new StringNumber(String.valueOf(j));
+
+        one.add(two);
+        assertEquals(one.toString(), Integer.toBinaryString(i + j));
+      }
     }
   }
 }
