@@ -13,7 +13,7 @@ class StringNumberTest {
   }
 
   @Test
-  void testadd_expectNumbersAdd() {
+  void testAdd_expectNumbersAdd() {
     StringNumber one = new StringNumber("127");
     StringNumber two = new StringNumber("1");
 
@@ -35,7 +35,7 @@ class StringNumberTest {
   }
 
   @Test
-  void testadd_lotsOfNumbers() {
+  void testAdd_lotsOfNumbers() {
     for (int i = 0; i <= 100; i++) {
       for (int j = 0; j <= 100; j++) {
         StringNumber one = new StringNumber(String.valueOf(i));
@@ -43,6 +43,24 @@ class StringNumberTest {
 
         one.add(two);
         assertEquals(one.toString(), Integer.toBinaryString(i + j));
+      }
+    }
+  }
+
+  @Test
+  void testCompareTo_expectWorks() {
+    for (int i = 0; i <= 100; i++) {
+      for (int j = 0; j <= 100; j++) {
+        StringNumber one = new StringNumber(String.valueOf(i));
+        StringNumber two = new StringNumber(String.valueOf(j));
+
+        if (i > j) {
+          assertTrue(one.compareTo(two) > 0);
+        } else if (i < j) {
+          assertTrue(one.compareTo(two) < 0);
+        } else {
+          assertEquals(0, one.compareTo(two));
+        }
       }
     }
   }

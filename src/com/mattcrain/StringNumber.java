@@ -1,6 +1,6 @@
 package com.mattcrain;
 
-public class StringNumber {
+public class StringNumber implements Comparable<StringNumber> {
 
   private String binary;
 
@@ -40,6 +40,27 @@ public class StringNumber {
   @Override
   public String toString() {
     return binary;
+  }
+
+  @Override
+  public int compareTo(StringNumber other) {
+    if (binary.length() > other.binary.length()) {
+      return 1;
+    } else if (binary.length() < other.binary.length()) {
+      return -1;
+    }
+    // The numbers have the same binary length.
+    for (int i = 0; i < binary.length(); i++) {
+      if (binary.charAt(i) == other.binary.charAt(i)) {
+        continue;
+      }
+      if (binary.charAt(i) == '1') {
+        return 1;
+      } else {
+        return -1;
+      }
+    }
+    return 0;
   }
 
   private String padZeros(String str, int len) {
