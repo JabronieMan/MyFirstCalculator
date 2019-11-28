@@ -48,6 +48,19 @@ class StringNumberTest {
   }
 
   @Test
+  void testMultiply_lotsOfNumbers() {
+    for (int i = 0; i <= 100; i++) {
+      for (int j = 0; j <= 100; j++) {
+        StringNumber one = new StringNumber(String.valueOf(i));
+        StringNumber two = new StringNumber(String.valueOf(j));
+
+        StringNumber result = one.multiply(two);
+        assertEquals(Integer.toBinaryString(i * j), result.toString(), String.format("Trying %d * %d", i, j));
+      }
+    }
+  }
+
+  @Test
   void testCompareTo_expectWorks() {
     for (int i = 0; i <= 100; i++) {
       for (int j = 0; j <= 100; j++) {

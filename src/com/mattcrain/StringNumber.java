@@ -37,6 +37,28 @@ public class StringNumber implements Comparable<StringNumber> {
     return this;
   }
 
+  public StringNumber multiply(StringNumber other) {
+    String one = binary;
+    String two = other.binary;
+
+    if (one.length() < two.length()) {
+      String tmp = one;
+      one = two;
+      two = tmp;
+    }
+
+    StringNumber result = new StringNumber("0");
+    for (int i = two.length() - 1; i >= 0; i--) {
+      if (two.charAt(i) == '1') {
+        StringNumber tmp = new StringNumber("0");
+        tmp.binary = one;
+        result.add(tmp);
+      }
+      one = one + "0";
+    }
+    return result;
+  }
+
   @Override
   public String toString() {
     return binary;
